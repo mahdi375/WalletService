@@ -1,19 +1,8 @@
 <?php
 
-namespace Tests\Feature;
+use function Pest\Laravel\getJson;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
-
-class ExampleTest extends TestCase
-{
-    /**
-     * A basic test example.
-     */
-    public function test_the_application_returns_a_successful_response(): void
-    {
-        $response = $this->get('/');
-
-        $response->assertOk();
-    }
-}
+it('tests the application home page', function () {
+    getJson('/')
+        ->assertOk();
+});
