@@ -9,9 +9,8 @@ use function Pest\Laravel\assertDatabaseEmpty;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\postJson;
 
-it('can make a transaction', function () {
+it('can make a transaction', function (int $amount) {
     $wallet = Wallet::factory()->create();
-    $amount = fake()->numberBetween(-100, 100);
 
     $payload = [
         'user_id' => $wallet->user_id,
@@ -30,7 +29,11 @@ it('can make a transaction', function () {
         'user_id' => $wallet->user_id,
         'amount' => $amount,
     ]);
-});
+})->with([
+    'positive amount' => fake()->numberBetween(1, 100),
+    'zero amount' => 0,
+    'negative amount' => fake()->numberBetween(-100, -1),
+]);
 
 it('adds ammount to wallet balance', function () {
     $wallet = Wallet::factory()->create();
