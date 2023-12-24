@@ -12,8 +12,10 @@ it('can get user wallet balance', function () {
         ->assertJson([
             'balance' => $wallet->balance,
         ]);
-})->only();
+});
 
 it('returns 404 if user wallet does not exist', function () {
-    //expect()->
+
+    getJson(route('api.v1.wallet.get-balance', fake()->randomNumber()))
+        ->assertNotFound();
 });
