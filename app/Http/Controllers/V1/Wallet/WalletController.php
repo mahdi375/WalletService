@@ -10,7 +10,7 @@ class WalletController extends BaseController
 {
     public function getBalance(int $userId): JsonResponse
     {
-        $wallet = Wallet::where('user_id', $userId)->firstOrFail();
+        $wallet = Wallet::user($userId)->firstOrFail();
 
         return $this->response([
             'balance' => $wallet->balance,
